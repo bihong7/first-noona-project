@@ -1,52 +1,15 @@
-<?
-ob_start();
-require_once "./lib/wthGlobal.php";
-require_once WTH_LIB."/wthLib/wthLib.php";
-
-$lytCode = $wthUtils->wthFileExt("path", $_SERVER['REQUEST_URI']);
-if($lytCode == "/" || $lytCode == ""){
-	$lytCode = "main";
-}
-
-// 추가정보 입력
-if($_COOKIE['getUser'] != ""){
-	$getUserUrl = $wthUtils->wthFileExt("getUrl", $_SERVER['REQUEST_URI']);
-	if(($getUserUrl != $_COOKIE['getUser']) && $_COOKIE['getUser'] != ""){
-		$getDirMsg = "추가정보를 입력해 주세요";
-
-		$certiCfg = $wthUser->wthUserSetup("setupQry", "");
-			// 실명인증
-			$certiData = trim($certiCfg['realData']);
-			$certiData = $wthUtils->wthDecodeJson($certiData);
-			$phoneCerti = trim($certiData['wthRealYn']);
-			if($phoneCerti == "Y"){
-				$getDirMsg = "본인인증을 해주세요";
-
-				$getUserCnt = (int)$wthUser->wthUserSave("userQry", $USER_ID, "wid");
-				if($getUserCnt > 0){
-					$getDirMsg = "추가정보를 입력해 주세요";
-				}
-			}
-
-		$wthUtils->wthRedirect("parentGo", $_COOKIE['getUser'], $getDirMsg);
-	exit();
-	}
-}
-
-if($lytCode == "main"){
-	// 모든쿠키 초기화
-	$wthUtils->mainCookieReset();
-}
-
-// 파일전체 경로
-$wthPath = $wthDgn->wthLayoutFile("file", $lytCode);
-if($wthPath != ""){
-	if(is_file($wthPath)){
-		require_once $wthPath;
-		require_once WTH_LIB."/common/wthPopup.html";
-	}else{
-		$wthUtils->wthRedirect("parentGo", "/page/404.html");
-	}
-}
-ob_end_flush();
-?>
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+    테스트야
+	
+ </body>
+</html>
